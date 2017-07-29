@@ -32,6 +32,7 @@ namespace voiceAuth
         {
             duration = 0;
             timer1.Start();
+            button_listener.Enabled = false;
             button_grammarList.Enabled = false;
             button_endlistener.Enabled = true;
             mfa.StartListening(textBox_grammarList.Text);

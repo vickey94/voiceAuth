@@ -30,7 +30,8 @@ namespace voiceAuth.action
         public AudioAction(MainformAction mf)
         {
             this.mf = mf;
-
+            Config.advData1 = null;
+            Config.advData2 = null;
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace voiceAuth.action
 
             mf.setProgressBar(volume);
 
-            if (volume > 20)
+            if (volume > 2)
             {
                 System.Console.WriteLine(Util.getNowTime() + " 监听到较大声音" + string.Format("{0}", volume));
 
