@@ -29,12 +29,17 @@
         private void InitializeComponent()
         {
             this.panel_train = new System.Windows.Forms.Panel();
+            this.label_train_time = new System.Windows.Forms.Label();
             this.textBox_id = new System.Windows.Forms.TextBox();
             this.button_train = new System.Windows.Forms.Button();
             this.label_id = new System.Windows.Forms.Label();
             this.panel_monitor = new System.Windows.Forms.Panel();
+            this.button_endlistener = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
-            this.button_monitor = new System.Windows.Forms.Button();
+            this.textBox_grammarList = new System.Windows.Forms.TextBox();
+            this.button_grammarList = new System.Windows.Forms.Button();
+            this.label_listener_time = new System.Windows.Forms.Label();
+            this.button_listener = new System.Windows.Forms.Button();
             this.panel_same = new System.Windows.Forms.Panel();
             this.richTextBox_msg = new System.Windows.Forms.RichTextBox();
             this.progressBar_voice = new System.Windows.Forms.ProgressBar();
@@ -45,27 +50,40 @@
             // 
             // panel_train
             // 
+            this.panel_train.Controls.Add(this.label_train_time);
             this.panel_train.Controls.Add(this.textBox_id);
             this.panel_train.Controls.Add(this.button_train);
             this.panel_train.Controls.Add(this.label_id);
             this.panel_train.Font = new System.Drawing.Font("微软雅黑", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_train.Location = new System.Drawing.Point(37, 34);
+            this.panel_train.Location = new System.Drawing.Point(20, 19);
+            this.panel_train.Margin = new System.Windows.Forms.Padding(2);
             this.panel_train.Name = "panel_train";
-            this.panel_train.Size = new System.Drawing.Size(1058, 231);
+            this.panel_train.Size = new System.Drawing.Size(788, 106);
             this.panel_train.TabIndex = 0;
+            // 
+            // label_train_time
+            // 
+            this.label_train_time.AutoSize = true;
+            this.label_train_time.Location = new System.Drawing.Point(20, 62);
+            this.label_train_time.Name = "label_train_time";
+            this.label_train_time.Size = new System.Drawing.Size(88, 25);
+            this.label_train_time.TabIndex = 3;
+            this.label_train_time.Text = "准备录制";
             // 
             // textBox_id
             // 
-            this.textBox_id.Location = new System.Drawing.Point(149, 23);
+            this.textBox_id.Location = new System.Drawing.Point(81, 13);
+            this.textBox_id.Margin = new System.Windows.Forms.Padding(2);
             this.textBox_id.Name = "textBox_id";
-            this.textBox_id.Size = new System.Drawing.Size(300, 51);
+            this.textBox_id.Size = new System.Drawing.Size(165, 32);
             this.textBox_id.TabIndex = 2;
             // 
             // button_train
             // 
-            this.button_train.Location = new System.Drawing.Point(759, 35);
+            this.button_train.Location = new System.Drawing.Point(424, 13);
+            this.button_train.Margin = new System.Windows.Forms.Padding(2);
             this.button_train.Name = "button_train";
-            this.button_train.Size = new System.Drawing.Size(244, 121);
+            this.button_train.Size = new System.Drawing.Size(133, 48);
             this.button_train.TabIndex = 1;
             this.button_train.Text = "按住说话";
             this.button_train.UseVisualStyleBackColor = true;
@@ -75,74 +93,124 @@
             // label_id
             // 
             this.label_id.AutoSize = true;
-            this.label_id.Location = new System.Drawing.Point(21, 23);
+            this.label_id.Location = new System.Drawing.Point(11, 13);
+            this.label_id.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.label_id.Name = "label_id";
-            this.label_id.Size = new System.Drawing.Size(122, 45);
+            this.label_id.Size = new System.Drawing.Size(69, 25);
             this.label_id.TabIndex = 0;
             this.label_id.Text = "工号：";
             // 
             // panel_monitor
             // 
+            this.panel_monitor.Controls.Add(this.button_endlistener);
             this.panel_monitor.Controls.Add(this.label1);
-            this.panel_monitor.Controls.Add(this.button_monitor);
+            this.panel_monitor.Controls.Add(this.textBox_grammarList);
+            this.panel_monitor.Controls.Add(this.button_grammarList);
+            this.panel_monitor.Controls.Add(this.label_listener_time);
+            this.panel_monitor.Controls.Add(this.button_listener);
             this.panel_monitor.Font = new System.Drawing.Font("微软雅黑", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_monitor.Location = new System.Drawing.Point(37, 288);
+            this.panel_monitor.Location = new System.Drawing.Point(20, 129);
+            this.panel_monitor.Margin = new System.Windows.Forms.Padding(2);
             this.panel_monitor.Name = "panel_monitor";
-            this.panel_monitor.Size = new System.Drawing.Size(1058, 225);
+            this.panel_monitor.Size = new System.Drawing.Size(788, 110);
             this.panel_monitor.TabIndex = 1;
+            // 
+            // button_endlistener
+            // 
+            this.button_endlistener.Location = new System.Drawing.Point(657, 63);
+            this.button_endlistener.Margin = new System.Windows.Forms.Padding(2);
+            this.button_endlistener.Name = "button_endlistener";
+            this.button_endlistener.Size = new System.Drawing.Size(98, 34);
+            this.button_endlistener.TabIndex = 7;
+            this.button_endlistener.Text = "结束监听";
+            this.button_endlistener.UseVisualStyleBackColor = true;
+            this.button_endlistener.Click += new System.EventHandler(this.button_endlistener_Click);
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(79, 93);
+            this.label1.Location = new System.Drawing.Point(11, 16);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(98, 45);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "MSG";
+            this.label1.Size = new System.Drawing.Size(105, 25);
+            this.label1.TabIndex = 6;
+            this.label1.Text = "语法文件id";
             // 
-            // button_monitor
+            // textBox_grammarList
             // 
-            this.button_monitor.Location = new System.Drawing.Point(772, 45);
-            this.button_monitor.Name = "button_monitor";
-            this.button_monitor.Size = new System.Drawing.Size(231, 117);
-            this.button_monitor.TabIndex = 2;
-            this.button_monitor.Text = "开始监听";
-            this.button_monitor.UseVisualStyleBackColor = true;
-            this.button_monitor.Click += new System.EventHandler(this.button_monitor_Click);
+            this.textBox_grammarList.Location = new System.Drawing.Point(121, 13);
+            this.textBox_grammarList.Margin = new System.Windows.Forms.Padding(2);
+            this.textBox_grammarList.Name = "textBox_grammarList";
+            this.textBox_grammarList.Size = new System.Drawing.Size(278, 32);
+            this.textBox_grammarList.TabIndex = 5;
+            // 
+            // button_grammarList
+            // 
+            this.button_grammarList.Location = new System.Drawing.Point(644, 12);
+            this.button_grammarList.Name = "button_grammarList";
+            this.button_grammarList.Size = new System.Drawing.Size(111, 32);
+            this.button_grammarList.TabIndex = 4;
+            this.button_grammarList.Text = "上传语法文件";
+            this.button_grammarList.UseVisualStyleBackColor = true;
+            this.button_grammarList.Click += new System.EventHandler(this.button_grammarList_Click);
+            // 
+            // label_listener_time
+            // 
+            this.label_listener_time.AutoSize = true;
+            this.label_listener_time.Location = new System.Drawing.Point(11, 72);
+            this.label_listener_time.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
+            this.label_listener_time.Name = "label_listener_time";
+            this.label_listener_time.Size = new System.Drawing.Size(88, 25);
+            this.label_listener_time.TabIndex = 3;
+            this.label_listener_time.Text = "准备监听";
+            // 
+            // button_listener
+            // 
+            this.button_listener.Location = new System.Drawing.Point(521, 63);
+            this.button_listener.Margin = new System.Windows.Forms.Padding(2);
+            this.button_listener.Name = "button_listener";
+            this.button_listener.Size = new System.Drawing.Size(98, 34);
+            this.button_listener.TabIndex = 2;
+            this.button_listener.Text = "开始监听";
+            this.button_listener.UseVisualStyleBackColor = true;
+            this.button_listener.Click += new System.EventHandler(this.button_listener_Click);
             // 
             // panel_same
             // 
             this.panel_same.Controls.Add(this.richTextBox_msg);
             this.panel_same.Controls.Add(this.progressBar_voice);
             this.panel_same.Font = new System.Drawing.Font("微软雅黑", 14.14286F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(134)));
-            this.panel_same.Location = new System.Drawing.Point(37, 537);
+            this.panel_same.Location = new System.Drawing.Point(20, 243);
+            this.panel_same.Margin = new System.Windows.Forms.Padding(2);
             this.panel_same.Name = "panel_same";
-            this.panel_same.Size = new System.Drawing.Size(1058, 378);
+            this.panel_same.Size = new System.Drawing.Size(788, 280);
             this.panel_same.TabIndex = 2;
             // 
             // richTextBox_msg
             // 
-            this.richTextBox_msg.Location = new System.Drawing.Point(3, 3);
+            this.richTextBox_msg.Location = new System.Drawing.Point(2, 2);
+            this.richTextBox_msg.Margin = new System.Windows.Forms.Padding(2);
             this.richTextBox_msg.Name = "richTextBox_msg";
-            this.richTextBox_msg.Size = new System.Drawing.Size(1052, 337);
+            this.richTextBox_msg.Size = new System.Drawing.Size(784, 255);
             this.richTextBox_msg.TabIndex = 1;
             this.richTextBox_msg.Text = "";
             // 
             // progressBar_voice
             // 
-            this.progressBar_voice.Location = new System.Drawing.Point(3, 346);
+            this.progressBar_voice.Location = new System.Drawing.Point(0, 261);
+            this.progressBar_voice.Margin = new System.Windows.Forms.Padding(2);
             this.progressBar_voice.Name = "progressBar_voice";
-            this.progressBar_voice.Size = new System.Drawing.Size(1052, 29);
+            this.progressBar_voice.Size = new System.Drawing.Size(786, 17);
             this.progressBar_voice.TabIndex = 0;
             // 
             // Mainform
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 21F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1125, 944);
+            this.ClientSize = new System.Drawing.Size(928, 539);
             this.Controls.Add(this.panel_same);
             this.Controls.Add(this.panel_monitor);
             this.Controls.Add(this.panel_train);
+            this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "Mainform";
             this.Text = "VoiceAuth";
             this.panel_train.ResumeLayout(false);
@@ -164,8 +232,13 @@
         private System.Windows.Forms.Label label_id;
         public System.Windows.Forms.TextBox textBox_id;
         public System.Windows.Forms.Button button_train;
-        public System.Windows.Forms.Label label1;
-        public System.Windows.Forms.Button button_monitor;
+        public System.Windows.Forms.Label label_listener_time;
+        public System.Windows.Forms.Button button_listener;
+        private System.Windows.Forms.Label label_train_time;
+        private System.Windows.Forms.Label label1;
+        public System.Windows.Forms.TextBox textBox_grammarList;
+        private System.Windows.Forms.Button button_grammarList;
+        public System.Windows.Forms.Button button_endlistener;
     }
 }
 

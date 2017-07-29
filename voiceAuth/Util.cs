@@ -6,7 +6,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace voice2text
+namespace voiceAuth
 {
     /// <summary>
     /// 工具类
@@ -18,7 +18,23 @@ namespace voice2text
             return String.Format("{0:yyy-MM-dd HH-mm-ss}", DateTime.Now);
         }
 
+        /// <summary>
+        /// 返回声音大小介于0-100之间
+        /// </summary>
+        /// <param name="temp_waveBuffer"></param>
+        /// <returns></returns>
+        public static int getVolume(byte[] temp_waveBuffer)
+        {
+            long sh = System.BitConverter.ToInt64(temp_waveBuffer, 0);
 
+            long width = (long)Math.Pow(2, 50);
+            float svolume = Math.Abs(sh / width);
+            if (svolume > 1500.0f) { svolume = 1500.0f; }
+
+            svolume = svolume / 15.0f;
+
+            return  (int)svolume;
+        }
 
         /// <summary>
         /// 指针转字符串
@@ -65,6 +81,22 @@ namespace voice2text
             //清空缓冲区、关闭流
             fs.Flush();
             fs.Close();
+        }
+
+
+        public static string FormatTime(long sec)
+        {
+            int D, H, M, S;
+
+            D = (int)(sec / 86400);
+
+            H = (int)(sec % 86400 / 3600);
+
+            M = (int)(sec % 86400 % 3600 / 60);
+
+            S = (int)(sec % 8600 % 3600 % 60);
+
+            return D + "天" + H + "小时" + M + "分钟" + S + "分钟";
         }
     }
 }

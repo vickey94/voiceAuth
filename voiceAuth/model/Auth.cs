@@ -1,5 +1,5 @@
 ﻿
-namespace voice2text.model
+namespace  voiceAuth.model
 {
     /// <summary>
     /// 进行一次语音验证的模型
@@ -10,29 +10,37 @@ namespace voice2text.model
         /// <summary>
         /// 开始时间，对应音频文件名称
         /// </summary>
-        private string time;
+        private string time = "null";
 
         /// <summary>
         /// 返回的语音验证文本
         /// </summary>
-        private string text;
+        private string text = "null";
 
         /// <summary>
         /// 验证的用户id
         /// </summary>
-        private string id;
+        private string id = "null";
 
         /// <summary>
         /// 验证结果（成功or失败）
         /// </summary>
-        private bool result;
+        private bool result = false;
+
+        public Auth(string time)
+        {
+            this.time = time;
+        }
 
 
+        public void setText(string text) { this.text = text; }
+        public void setId(string id) { this.id = id; }
 
 
-        public void setTime(string time) { this.time = time; }
- 
-
+        public string getWriteText()
+        {
+            return time + "," + id + "," + text+","+result;
+        }
 
         /// <summary>
         /// 获取音频文件地址

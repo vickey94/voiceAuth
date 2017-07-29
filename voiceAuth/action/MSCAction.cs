@@ -7,7 +7,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace voice2text.action
+namespace voiceAuth.action
 {
  /**
    * 流程为：
@@ -23,18 +23,17 @@ namespace voice2text.action
     class MSCAction
     {
 
+        private MainformAction mf = null;
+
+        public MSCAction(MainformAction mf)
+        {
+            this.mf = mf;
+        }
+
         /// <summary>
         /// 函数调用成功返回字符串格式的sessionID，失败返回NULL。sessionID是本次评测的句柄。参数只在当次评测中生效.
         /// </summary>
         private string sess_id;
-
-        /// <summary>
-        /// 每次输入输出字节流大小，
-        /// 这里要注意，如果和AudioAction里的音频读取流混用,即每次录音后就上传服务器，则大小要设置为一致3200
-        /// </summary>
-        private const int BUFFER_NUM = 1024 * 20;
-
-        private const int Recording_BUFFER_NUM = 3200;
 
         /// <summary>
         /// 端点检测
@@ -104,10 +103,10 @@ namespace voice2text.action
         public void AudioWrite(byte[] buff)
         {
             int ret = 0;
-            IntPtr bp = Marshal.AllocHGlobal(Recording_BUFFER_NUM);
+            IntPtr bp = Marshal.AllocHGlobal(Config.Recording_BUFFER_NUM);
             Marshal.Copy(buff, 0, bp, buff.Length);
             ///开始向服务器发送音频数据
-            ret = MSCDll.QISRAudioWrite(sess_id, bp, (uint)Recording_BUFFER_NUM, 2, ref ep_status, ref rec_status);
+            ret = MSCDll.QISRAudioWrite(sess_id, bp, (uint)Config.Recording_BUFFER_NUM, 2, ref ep_status, ref rec_status);
             if (ret != 0)
             {
                 Console.WriteLine(ret);
@@ -134,14 +133,14 @@ namespace voice2text.action
 
             // if (inFile.Substring(inFile.Length - 3, 3).ToUpper() == "WAV") fp.Position = 44; //去除头部
 
-            byte[] buff = new byte[BUFFER_NUM];
-            IntPtr bp = Marshal.AllocHGlobal(BUFFER_NUM);
+            byte[] buff = new byte[Config.File_BUFFER_NUM];
+            IntPtr bp = Marshal.AllocHGlobal(Config.File_BUFFER_NUM);
             int len;
 
             int audioStatus = 1; //用来告知MSC音频发送是否完成
 
             //发送首块音频
-            len = fp.Read(buff, 0, BUFFER_NUM);
+            len = fp.Read(buff, 0, Config.File_BUFFER_NUM);
             Marshal.Copy(buff, 0, bp, buff.Length);
             ret = MSCDll.QISRAudioWrite(sess_id, bp, (uint)len, audioStatus, ref ep_status, ref rec_status);
 
@@ -149,7 +148,7 @@ namespace voice2text.action
 
             while (fp.Position != fp.Length)
             {
-                len = fp.Read(buff, 0, BUFFER_NUM);
+                len = fp.Read(buff, 0, Config.File_BUFFER_NUM);
                 Marshal.Copy(buff, 0, bp, buff.Length);
 
                 ///开始向服务器发送音频数据
@@ -189,7 +188,7 @@ namespace voice2text.action
 
             while (true)
             {
-                Thread.Sleep(500);
+                Thread.Sleep(200);
 
                 ///识别中 这里必须进行一次识别才能获取结果状态，如果直接continue,状态会一直为2
               /* if (rec_status == 2 && rslt_status == 2)
@@ -236,6 +235,45 @@ namespace voice2text.action
             return result;
         }
 
+
+        /// <summary>
+        /// 上传语法文件
+        /// </summary>
+        /// <param name="inFile"></param>
+        public string UploadData(string inFile)
+        {
+            string dataName = "keyword";
+
+            int dataLen;
+
+            string param = "sub = asr,dtt = abnf";
+
+            int ret = 0;
+
+            FileStream fp = new FileStream(inFile, FileMode.Open);
+
+            dataLen = (int)fp.Length;
+
+            byte[] buff = new byte[dataLen];
+
+            IntPtr bp = Marshal.AllocHGlobal(dataLen);
+
+            fp.Read(buff, 0, dataLen);
+
+            Marshal.Copy(buff, 0, bp, buff.Length);
+
+            string result = Util.Ptr2Str(MSCDll.MSPUploadData(dataName, bp, (uint)dataLen, param, ref ret));
+            if (ret != 0) Console.WriteLine("ret is " + ret);
+
+           
+            Console.WriteLine("上传结果为：" + result);
+            fp.Close();
+
+            return result;
+
+        }
+
+        public int getNowEp_status() { return ep_status; }
 
         public int getNowResultStatus() { return nowResultStatus; }
 

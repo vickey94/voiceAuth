@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace voice2text.model
+namespace voiceAuth.model
 {
     /// <summary>
     /// 一次训练的对象

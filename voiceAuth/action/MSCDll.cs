@@ -2,7 +2,7 @@
 using System.Runtime.InteropServices;
 
 
-namespace voice2text
+namespace voiceAuth
 {
     class MSCDll
     {

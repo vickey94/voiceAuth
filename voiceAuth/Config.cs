@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace voice2text
+namespace voiceAuth
 {
     class Config
     {
@@ -32,7 +32,16 @@ namespace voice2text
         /// <summary>
         /// 上传语法后的获取的唯一grammarList，下次可以直接使用
         /// </summary>
-        public static readonly string grammarList = string.Empty;
+        public static string grammarList = string.Empty;
+
+
+        /// <summary>
+        /// 每次输入输出字节流大小，
+        /// 这里要注意，如果和AudioAction里的音频读取流混用,即每次录音后就上传服务器，则大小要设置为一致3200
+        /// </summary>
+        public const int File_BUFFER_NUM = 1024 * 20;
+
+        public const int Recording_BUFFER_NUM = 3200;
 
         /// <summary>
         /// 文件输出文件夹
