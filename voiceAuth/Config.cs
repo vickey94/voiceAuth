@@ -32,7 +32,7 @@ namespace voiceAuth
         /// <summary>
         /// 上传语法后的获取的唯一grammarList，下次可以直接使用
         /// </summary>
-        public static string grammarList = string.Empty;
+        public static string grammarList = "8f78114ce1f29dc1906c58220b113d4d";
 
 
         /// <summary>

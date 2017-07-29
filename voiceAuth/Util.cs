@@ -96,7 +96,7 @@ namespace voiceAuth
 
             S = (int)(sec % 8600 % 3600 % 60);
 
-            return D + "天" + H + "小时" + M + "分钟" + S + "分钟";
+            return D + "天" + H + "小时" + M + "分钟" + S + "秒";
         }
     }
 }

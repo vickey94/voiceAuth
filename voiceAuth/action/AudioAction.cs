@@ -58,7 +58,7 @@ namespace voiceAuth.action
 
             int length = e.BytesRecorded;
 
-            if (Config.advData1 != null)
+            if (Config.advData1 != null && Config.advData2 != null)
             {
                 Console.WriteLine("预录音数据传输");
 
@@ -160,10 +160,9 @@ namespace voiceAuth.action
                 mf.setRichTextBox(Util.getNowTime()+" 捕获到声音，开始进行识别\n");
 
                 StopMonitoring(); ///暂停监听
+                FinshMonitoring();
             }
 
-        //    long secondsRecorded = (long)(waveWriter.Length / waveWriter.WaveFormat.AverageBytesPerSecond);//录音时间获取 
-        //    mf.setListenerLabelTime("已运行" + Util.FormatTime(secondsRecorded));
            
         }
 

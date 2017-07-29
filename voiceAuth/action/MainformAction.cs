@@ -56,6 +56,8 @@ namespace voiceAuth.action
         {
             this.mf = mf;
 
+          
+
             ///本次输出文件夹          
             Config.outputFolder = Config.outputFolder + "\\" + Util.getNowTime();
 
@@ -72,6 +74,8 @@ namespace voiceAuth.action
                 File.Create(Config.outputFolder + "\\run\\" + Config.outputTXT).Close();
 
             }
+
+          
 
             Util.MSPLogin(); //登录
         }
@@ -217,7 +221,12 @@ namespace voiceAuth.action
         }
 
 
-
+        private void voice_MonitorOpen()
+        {
+            voice_Monitor = new AudioAction(this);
+            voice_Monitor.initMonitor();
+            voice_Monitor.StartMonitoringHandler(); //自带线程
+        }
 
         /// <summary>
         /// 主监控，控制指令识别开始
@@ -225,9 +234,7 @@ namespace voiceAuth.action
         public void Monitor()
         {
             ///创建监控
-            voice_Monitor = new AudioAction(this);
-            voice_Monitor.initMonitor();
-            voice_Monitor.StartMonitoringHandler(); //自带线程
+            voice_MonitorOpen();
 
             ///开始监听
             while (true)
@@ -278,8 +285,9 @@ namespace voiceAuth.action
                         setRichTextBox(Util.getNowTime() + " 端点结束，请再次尝试！\n");
                         Console.WriteLine(Util.getNowTime() + " 端点结束" + res);
 
-                        voice_Monitor.StartMonitoringHandler();
-                        Thread.Sleep(100);
+                        // voice_Monitor.StartMonitoringHandler();
+                        voice_MonitorOpen();
+                       
                         session_monitor.Abort();///结束本身线程
                     }
 
@@ -306,9 +314,9 @@ namespace voiceAuth.action
                         StopSession_ASR();
                         Console.WriteLine("再次验证结束！");
 
-                        Thread.Sleep(100);
-                        voice_Monitor.StartMonitoringHandler(); ///再次开启环境监听
-
+                        
+                        //  voice_Monitor.StartMonitoringHandler(); ///再次开启环境监听
+                        voice_MonitorOpen();
                         session_monitor.Abort();///结束本身线程
 
 
@@ -412,10 +420,10 @@ namespace voiceAuth.action
         /// <summary>
         /// 上传语法文件
         /// </summary>
-        public void UploadABNF()
+        public void UploadABNF(string path)
         {
             msc = new MSCAction(null);
-            string grammarList = msc.UploadData("D:\\res\\keynumber.abnf");
+            string grammarList = msc.UploadData(path);
 
             setRichTextBox(Util.getNowTime() + " grammarList is " + grammarList+"\n");
 

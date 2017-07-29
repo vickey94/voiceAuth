@@ -7,6 +7,10 @@ namespace voiceAuth
 {
     public partial class Mainform : Form
     {
+        /// <summary>
+        /// 持续时间
+        /// </summary>
+        private long duration;
 
         private MainformAction mfa;
 
@@ -15,23 +19,32 @@ namespace voiceAuth
             InitializeComponent();
       
             mfa = new MainformAction(this);
+
+            textBox_grammarList.Text = Config.grammarList;
+            button_endlistener.Enabled = false;
         }
         ~Mainform()
         {
             
         }
-        AudioAction au;
+       
         private void button_listener_Click(object sender, EventArgs e)
         {
-
-            //  mfa.StartListening(textBox_grammarList.Text);
+            duration = 0;
+            timer1.Start();
+            button_grammarList.Enabled = false;
+            button_endlistener.Enabled = true;
+            mfa.StartListening(textBox_grammarList.Text);
 
         }
 
 
         private void button_endlistener_Click(object sender, EventArgs e)
         {
-            //  mfa.StopListening();
+            timer1.Stop();
+            button_grammarList.Enabled = true;
+            button_listener.Enabled = true;
+              mfa.StopListening();
 
         }
 
@@ -54,7 +67,19 @@ namespace voiceAuth
 
         private void button_grammarList_Click(object sender, EventArgs e)
         {
-            mfa.UploadABNF();
+            OpenFileDialog fdlg = new OpenFileDialog();
+            fdlg.Title = "打开语法文件";
+            fdlg.Filter = "ABNF(*.abnf)|*.abnf|All files(*.*)|*.*";
+
+            fdlg.RestoreDirectory = true;
+            
+            if (fdlg.ShowDialog() == DialogResult.OK)
+            {
+               string path = fdlg.FileName;
+                mfa.UploadABNF(path);
+            }
+
+           
         }
 
         /// <summary>
@@ -109,7 +134,11 @@ namespace voiceAuth
             }));
 
         }
-
-   
+       
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            duration++;
+            label_listener_time.Text = Util.FormatTime(duration);
+        }
     }
 }
