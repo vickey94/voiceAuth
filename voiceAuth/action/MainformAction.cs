@@ -377,7 +377,8 @@ namespace voiceAuth.action
         public void StartSession_ASR(Auth auth)
         {
             msc = new MSCAction(this);
-           
+
+            Console.WriteLine(Config.grammarList);
             msc.SessionBegin(Config.grammarList, Config.PARAMS_SESSION_ASR);
 
         
@@ -425,6 +426,7 @@ namespace voiceAuth.action
         {
             msc = new MSCAction(null);
             string grammarList = msc.UploadData(path);
+            Config.grammarList = grammarList;
 
             setRichTextBox(Util.getNowTime() + " grammarList is " + grammarList+"\n");
 

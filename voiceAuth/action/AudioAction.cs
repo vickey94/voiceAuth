@@ -152,7 +152,7 @@ namespace voiceAuth.action
 
             mf.setProgressBar(volume);
 
-            if (volume > 2)
+            if (volume > 20)
             {
                 System.Console.WriteLine(Util.getNowTime() + " 监听到较大声音" + string.Format("{0}", volume));
 
