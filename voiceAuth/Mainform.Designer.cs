@@ -30,6 +30,9 @@
         {
             this.components = new System.ComponentModel.Container();
             this.panel_train = new System.Windows.Forms.Panel();
+            this.button_path = new System.Windows.Forms.Button();
+            this.label_path = new System.Windows.Forms.Label();
+            this.textBox_path = new System.Windows.Forms.TextBox();
             this.label_train_time = new System.Windows.Forms.Label();
             this.textBox_id = new System.Windows.Forms.TextBox();
             this.button_train = new System.Windows.Forms.Button();
@@ -52,6 +55,9 @@
             // 
             // panel_train
             // 
+            this.panel_train.Controls.Add(this.button_path);
+            this.panel_train.Controls.Add(this.label_path);
+            this.panel_train.Controls.Add(this.textBox_path);
             this.panel_train.Controls.Add(this.label_train_time);
             this.panel_train.Controls.Add(this.textBox_id);
             this.panel_train.Controls.Add(this.button_train);
@@ -63,10 +69,39 @@
             this.panel_train.Size = new System.Drawing.Size(1412, 186);
             this.panel_train.TabIndex = 0;
             // 
+            // button_path
+            // 
+            this.button_path.Location = new System.Drawing.Point(1023, 17);
+            this.button_path.Margin = new System.Windows.Forms.Padding(4);
+            this.button_path.Name = "button_path";
+            this.button_path.Size = new System.Drawing.Size(360, 60);
+            this.button_path.TabIndex = 6;
+            this.button_path.Text = "设置路径";
+            this.button_path.UseVisualStyleBackColor = true;
+            this.button_path.Click += new System.EventHandler(this.button_path_Click);
+            // 
+            // label_path
+            // 
+            this.label_path.AutoSize = true;
+            this.label_path.Location = new System.Drawing.Point(20, 26);
+            this.label_path.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
+            this.label_path.Name = "label_path";
+            this.label_path.Size = new System.Drawing.Size(190, 45);
+            this.label_path.TabIndex = 5;
+            this.label_path.Text = "数据路径：";
+            // 
+            // textBox_path
+            // 
+            this.textBox_path.Location = new System.Drawing.Point(251, 23);
+            this.textBox_path.Margin = new System.Windows.Forms.Padding(4);
+            this.textBox_path.Name = "textBox_path";
+            this.textBox_path.Size = new System.Drawing.Size(734, 51);
+            this.textBox_path.TabIndex = 4;
+            // 
             // label_train_time
             // 
             this.label_train_time.AutoSize = true;
-            this.label_train_time.Location = new System.Drawing.Point(20, 19);
+            this.label_train_time.Location = new System.Drawing.Point(20, 112);
             this.label_train_time.Margin = new System.Windows.Forms.Padding(6, 0, 6, 0);
             this.label_train_time.Name = "label_train_time";
             this.label_train_time.Size = new System.Drawing.Size(156, 45);
@@ -75,7 +110,7 @@
             // 
             // textBox_id
             // 
-            this.textBox_id.Location = new System.Drawing.Point(150, 112);
+            this.textBox_id.Location = new System.Drawing.Point(552, 112);
             this.textBox_id.Margin = new System.Windows.Forms.Padding(4);
             this.textBox_id.Name = "textBox_id";
             this.textBox_id.Size = new System.Drawing.Size(433, 51);
@@ -83,7 +118,7 @@
             // 
             // button_train
             // 
-            this.button_train.Location = new System.Drawing.Point(603, 106);
+            this.button_train.Location = new System.Drawing.Point(1023, 103);
             this.button_train.Margin = new System.Windows.Forms.Padding(4);
             this.button_train.Name = "button_train";
             this.button_train.Size = new System.Drawing.Size(360, 60);
@@ -96,7 +131,7 @@
             // label_id
             // 
             this.label_id.AutoSize = true;
-            this.label_id.Location = new System.Drawing.Point(20, 112);
+            this.label_id.Location = new System.Drawing.Point(366, 112);
             this.label_id.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label_id.Name = "label_id";
             this.label_id.Size = new System.Drawing.Size(122, 45);
@@ -250,6 +285,9 @@
         private System.Windows.Forms.Button button_grammarList;
         public System.Windows.Forms.Button button_endlistener;
         private System.Windows.Forms.Timer timer1;
+        public System.Windows.Forms.Button button_path;
+        private System.Windows.Forms.Label label_path;
+        public System.Windows.Forms.TextBox textBox_path;
     }
 }
 

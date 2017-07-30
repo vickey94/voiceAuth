@@ -5,6 +5,9 @@ using voiceAuth.action;
 
 namespace voiceAuth
 {
+    /// <summary>
+    /// 首先要设置项目数据存放的文件夹，然后创建
+    /// </summary>
     public partial class Mainform : Form
     {
         /// <summary>
@@ -17,17 +20,46 @@ namespace voiceAuth
         public Mainform()
         {
             InitializeComponent();
-      
+
             mfa = new MainformAction(this);
 
             textBox_grammarList.Text = Config.grammarList;
             button_endlistener.Enabled = false;
+            textBox_path.Text = Config.outputFolder;
+
+
+            button_train.Enabled = false;
+            button_listener.Enabled = false;
+
         }
         ~Mainform()
         {
             
         }
-       
+
+        private void button_path_Click(object sender, EventArgs e)
+        {
+            System.Windows.Forms.FolderBrowserDialog dialog = new System.Windows.Forms.FolderBrowserDialog();
+            dialog.Description = "选择项目数据存放文件夹";
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                Config.outputFolder = dialog.SelectedPath;
+                if (string.IsNullOrEmpty(dialog.SelectedPath))
+                {
+                    Config.outputFolder = @"D:";
+                }        
+
+            }
+            textBox_path.Text = Config.outputFolder;
+
+
+            mfa.CreateFolder();      
+
+            button_train.Enabled = true;
+            button_listener.Enabled = true;
+
+        }
+
         private void button_listener_Click(object sender, EventArgs e)
         {
             duration = 0;
@@ -141,5 +173,7 @@ namespace voiceAuth
             duration++;
             label_listener_time.Text = Util.FormatTime(duration);
         }
+
+
     }
 }

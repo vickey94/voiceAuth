@@ -8,6 +8,7 @@ namespace voiceAuth.action
 {
     /// <summary>
     /// 为Mainform调用
+    /// 
     /// </summary>
     class MainformAction
     {
@@ -56,7 +57,11 @@ namespace voiceAuth.action
         {
             this.mf = mf;
 
-          
+            Util.MSPLogin(); //登录
+        }
+
+        public void CreateFolder()
+        {
 
             ///本次输出文件夹          
             Config.outputFolder = Config.outputFolder + "\\" + Util.getNowTime();
@@ -74,10 +79,6 @@ namespace voiceAuth.action
                 File.Create(Config.outputFolder + "\\run\\" + Config.outputTXT).Close();
 
             }
-
-          
-
-            Util.MSPLogin(); //登录
         }
 
         ~MainformAction()
