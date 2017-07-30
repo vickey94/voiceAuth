@@ -56,7 +56,7 @@ namespace voiceAuth.action
         public MainformAction(Mainform mf)
         {
             this.mf = mf;
-
+            CreateFolder();
             Util.MSPLogin(); //登录
         }
 
@@ -193,32 +193,40 @@ namespace voiceAuth.action
         /// </summary>
         public void StopListening()
         {
+
+            Environment.Exit(0);
+
             setRichTextBox(Util.getNowTime() + " 监听结束\n");
-            main_monitor.Abort();
+          
+                main_monitor.Abort();
 
-        /*    if(msc_result!=null)
-            {
-                msc_result.Abort();
-              
-            }
+                if (msc_result != null && msc_result.IsAlive)
+                {
+                    msc_result.Abort();
 
-            if (session_monitor.IsAlive)
-            {
-                session_monitor.Abort();
-               
-            }*/
+                }
 
-            msc_result = null;
-            session_monitor = null;
+                if (session_monitor != null && session_monitor.IsAlive)
+                {
+                    session_monitor.Abort();
 
-            main_monitor = null;
-            msc = null;
-            audio = null;
+                }
+                msc.SessionEnd();
+                msc_result = null;
+                session_monitor = null;
 
-            voice_Monitor = null;
+                main_monitor = null;
+                msc = null;
+                audio = null;
 
-            auth = null;
+                voice_Monitor = null;
+                auth = null;
 
+         
+
+           
+
+           
         }
 
 
@@ -285,11 +293,12 @@ namespace voiceAuth.action
                         StopSession_IAT();
                         setRichTextBox(Util.getNowTime() + " 端点结束，请再次尝试！\n");
                         Console.WriteLine(Util.getNowTime() + " 端点结束" + res);
+                        Console.WriteLine(Config.advData1 == null);
 
-                        // voice_Monitor.StartMonitoringHandler();
                         voice_MonitorOpen();
-                       
+
                         session_monitor.Abort();///结束本身线程
+
                     }
 
                     if (res.Length > 6) //这里验证连续语音识别结束条件
@@ -310,11 +319,9 @@ namespace voiceAuth.action
                 {
                     if (status == 1)
                     {
-
-                       
+         
                         StopSession_ASR();
                         Console.WriteLine("再次验证结束！");
-
                         
                         //  voice_Monitor.StartMonitoringHandler(); ///再次开启环境监听
                         voice_MonitorOpen();
@@ -323,7 +330,6 @@ namespace voiceAuth.action
 
                     }
                 }
-
 
             }
 
@@ -378,9 +384,8 @@ namespace voiceAuth.action
         {
             msc = new MSCAction(this);
 
-            Console.WriteLine(Config.grammarList);
+          //  Console.WriteLine(Config.grammarList);
             msc.SessionBegin(Config.grammarList, Config.PARAMS_SESSION_ASR);
-
         
             ///设置文件地址
             msc.SetINFILE(auth.getRunPath_wav());

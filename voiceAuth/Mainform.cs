@@ -28,13 +28,13 @@ namespace voiceAuth
             textBox_path.Text = Config.outputFolder;
 
 
-            button_train.Enabled = false;
-            button_listener.Enabled = false;
+       //     button_train.Enabled = false;
+       //     button_listener.Enabled = false;
 
         }
         ~Mainform()
         {
-            
+            Environment.Exit(0);
         }
 
         private void button_path_Click(object sender, EventArgs e)

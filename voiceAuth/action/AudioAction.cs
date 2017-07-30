@@ -30,8 +30,6 @@ namespace voiceAuth.action
         public AudioAction(MainformAction mf)
         {
             this.mf = mf;
-            Config.advData1 = null;
-            Config.advData2 = null;
         }
 
         /// <summary>
