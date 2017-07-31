@@ -1,6 +1,8 @@
 ﻿using NAudio.Wave;
 using System;
+using System.Threading;
 using voiceAuth;
+using voiceAuth.model;
 
 namespace voiceAuth.action
 {
@@ -57,20 +59,33 @@ namespace voiceAuth.action
 
             int length = e.BytesRecorded;
 
-            if (Config.advData1 != null && Config.advData2 != null)
+            if (Config.advData1 != null || Config.advData2 != null|| Config.advData3 != null)
             {
                 Console.WriteLine("预录音数据传输");
 
-                temp_waveBuffer = Config.advData1;
-                waveWriter.Write(temp_waveBuffer, 0, length);
-                if (msc != null) msc.AudioWrite(temp_waveBuffer);
+                if(Config.advData1 != null)
+                {
+                    temp_waveBuffer = Config.advData1;
+                    waveWriter.Write(temp_waveBuffer, 0, length);
+                    if (msc != null) msc.AudioWrite(temp_waveBuffer);
+                    Config.advData1 = null;
+                }
+                if (Config.advData2 != null)
+                {
+                    temp_waveBuffer = Config.advData2;
+                    waveWriter.Write(temp_waveBuffer, 0, length);
+                    if (msc != null) msc.AudioWrite(temp_waveBuffer);
+                    Config.advData2 = null;
+                }
 
-                temp_waveBuffer = Config.advData2;
-                waveWriter.Write(temp_waveBuffer, 0, length);
-                if (msc != null) msc.AudioWrite(temp_waveBuffer);
-
-                Config.advData1 = null;
-                Config.advData2 = null;
+                if (Config.advData3 != null)
+                {
+                    temp_waveBuffer = Config.advData3;
+                    waveWriter.Write(temp_waveBuffer, 0, length);
+                    if (msc != null) msc.AudioWrite(temp_waveBuffer);
+                    Config.advData3 = null;
+                }
+ 
             }
 
             temp_waveBuffer = e.Buffer;
@@ -150,16 +165,26 @@ namespace voiceAuth.action
 
             mf.setProgressBar(volume);
 
-            if (volume > 20)
+            if (volume > 15)
             {
                 System.Console.WriteLine(Util.getNowTime() + " 监听到较大声音" + string.Format("{0}", volume));
 
-                Config.isSpeeking = true;
+           //     Config.isSpeeking = true;
 
                 mf.setRichTextBox(Util.getNowTime()+" 捕获到声音，开始进行识别\n");
 
-                StopMonitoring(); ///暂停监听
-                FinshMonitoring();
+               StopMonitoring(); ///暂停监听
+               FinshMonitoring();
+
+                mf.auth = new Auth(Util.getNowTime()); ///设置本次验证对象
+
+                ///开启连续语音识别
+                mf.StartSession_IAT(mf.auth);
+
+                mf.session_monitor = new Thread(new ThreadStart(mf.AuthSessionMonitor));
+                mf.session_monitor.Start();
+
+
             }
 
            
@@ -200,16 +225,10 @@ namespace voiceAuth.action
         /// <param name="temp"></param>
         private void SetAdvData(byte[] temp)
         {
-            if (Config.advData2 != null)
-            {
-                Config.advData1 = Config.advData2;
-                Config.advData2 = temp;
-            }
-            else
-            {
-                if (Config.advData1 == null) Config.advData1 = temp;
-                else Config.advData2 = Config.advData1 = temp;
-            }
+            Config.advData1 = Config.advData2;
+            Config.advData2 = Config.advData3;
+            Config.advData3 = temp;
+        
         }
 
 

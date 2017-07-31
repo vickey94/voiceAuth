@@ -20,7 +20,7 @@ namespace voiceAuth.action
 
         private Train train; ///一次训练对象
 
-        private Auth auth; ///一次识别对象
+        public Auth auth; ///一次识别对象
 
         private string res; //监控线程获取到的文本
 
@@ -37,7 +37,7 @@ namespace voiceAuth.action
         /// <summary>
         /// 一次会话监控线程
         /// </summary>
-        private Thread session_monitor = null;
+        public Thread session_monitor = null;
 
         /// <summary>
         /// 主监控线程
@@ -221,12 +221,6 @@ namespace voiceAuth.action
 
                 voice_Monitor = null;
                 auth = null;
-
-         
-
-           
-
-           
         }
 
 
@@ -246,14 +240,15 @@ namespace voiceAuth.action
             voice_MonitorOpen();
 
             ///开始监听
-            while (true)
+        /*    while (true)
             {
-                Thread.Sleep(50);
+                Thread.Sleep(10);
 
                 if (Config.isSpeeking)
                 {
                     //voice_Monitor.StopMonitoring(); 这里已经自动暂停了，所以不需要
 
+                   
                     Config.isSpeeking = false;//重置状态
 
                     auth = new Auth(Util.getNowTime()); ///设置本次验证对象
@@ -265,7 +260,7 @@ namespace voiceAuth.action
                     session_monitor.Start();
 
                 }
-            }
+            }*/
         }
 
         /// <summary>
@@ -293,7 +288,7 @@ namespace voiceAuth.action
                         StopSession_IAT();
                         setRichTextBox(Util.getNowTime() + " 端点结束，请再次尝试！\n");
                         Console.WriteLine(Util.getNowTime() + " 端点结束" + res);
-                        Console.WriteLine(Config.advData1 == null);
+    
 
                         voice_MonitorOpen();
 
@@ -301,7 +296,7 @@ namespace voiceAuth.action
 
                     }
 
-                    if (res.Length > 6) //这里验证连续语音识别结束条件
+                    if (res.Length > 3) //这里验证连续语音识别结束条件
                     {
                         StopSession_IAT();
 
@@ -338,7 +333,7 @@ namespace voiceAuth.action
         /// <summary>
         /// 连续语音识别开始
         /// </summary>
-        private void StartSession_IAT(Auth auth)
+         public void StartSession_IAT(Auth auth)
         {
 
             msc = new MSCAction(this);

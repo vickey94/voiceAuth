@@ -68,6 +68,7 @@ namespace voiceAuth
         /// </summary>
         public static byte[] advData1 = null;
         public static byte[] advData2 = null;
+        public static byte[] advData3 = null;
 
 
 
@@ -75,6 +76,6 @@ namespace voiceAuth
         ////////////////////////////////////////////
         ///
         /////////////////////////////////////////////
-       
+
     }
 }

@@ -228,7 +228,10 @@ namespace voiceAuth.action
 
             IntPtr p = MSCDll.QISRGetResult(sess_id, ref rslt_status, 1000, ref ret);
 
-            if (ret != 0){ throw new Exception("QISRGetResult err,errCode=" + ret);}
+            if (ret != 0){
+                return "QISRGetResult err,errCode=" + ret;
+                //throw new Exception("QISRGetResult err,errCode=" + ret);
+            }
 
             if (p != IntPtr.Zero){result = Util.Ptr2Str(p);}
 
